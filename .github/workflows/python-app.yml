@@ -1,0 +1,40 @@
+name: Python CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: (Optional) Run tests
+        run: |
+          echo "No test cases yet"  # We will add real tests later
+
+      - name: Build Docker image
+        run: docker build -t flask-ci-app .
+
+      - name: Save Docker image to file
+        run: docker save flask-ci-app | gzip > flask-ci-app.tar.gz
+
+      - name: Upload Docker image as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: flask-ci-app
+          path: flask-ci-app.tar.gz
+
