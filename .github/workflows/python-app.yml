@@ -22,9 +22,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: (Optional) Run tests
+      - name: Run tests
         run: |
-          echo "No test cases yet"  # We will add real tests later
+          pytest tests/
 
       - name: Build Docker image
         run: docker build -t flask-ci-app .
