@@ -33,8 +33,9 @@ jobs:
         run: docker save flask-ci-app | gzip > flask-ci-app.tar.gz
 
       - name: Upload Docker image as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: flask-ci-app
-          path: flask-ci-app.tar.gz
+  uses: actions/upload-artifact@v3
+  with:
+    name: flask-ci-app
+    path: flask-ci-app.tar.gz
+
 
